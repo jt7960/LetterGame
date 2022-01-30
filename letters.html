@@ -1,0 +1,45 @@
+<HTML>
+    <TITLE>
+        Letter and Sound Recognition
+    </TITLE>
+    <HEAD>
+        <link rel="stylesheet" type="text/css" href="style.css">
+         
+    </HEAD>
+    <BODY>
+        <div id='outer_frame'>
+            <div id='score_frame'>
+                <div id='score_board'>
+                    <ul>
+                        <li>
+                            Score: <span id='score'>0</span>
+                        </li>
+                        <li>
+                            Pass: <span id='pass'>0</span>
+                        </li>
+                        <li>
+                            Incorrect: <span id='incorrect'>0</span>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id='start'>Start Game!</div>
+                <div id='timer'>
+                    <span>Timer: </span>
+                    <span id='timer_val'></span>
+                    <br>
+                    <span>click to stop</span>
+                </div>
+            </div>
+            <div id='char_frame'>
+                <span id='char'></span>
+            </div>
+            <div id='control_frame'>
+                <div id='btn_correct'>Correct</div>
+                <div id='btn_incorrect'>Incorrect</div>
+                <div id='btn_pass'>Pass</div>
+            </div>
+        </div>
+    </BODY>
+    <script type="text/javascript" src="letters.js"></script> 
+</HTML>

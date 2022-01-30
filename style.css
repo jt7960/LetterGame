@@ -1,0 +1,79 @@
+body{
+    background-color: #16a0db;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding:5px;
+}
+
+#outer_frame{
+    border: 1px solid red;
+    height:90%;
+    width:90%;
+    background-color: darkgray;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+#score_frame{
+    border:1px solid blue;
+    padding: 5px;
+    margin:5px;
+    height: 20%;
+    justify-content: center;
+    flex-grow:1;
+    width: 100%;
+    display: flex;
+}
+#score_board, #start, #timer{
+    border: 1px solid black;
+    /*height: 100%;*/
+    width:40%;
+    flex-grow:1;
+    margin:5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+
+
+#timer_val{
+    justify-content: center;
+    align-items: center;
+}
+
+#char_frame{
+    display: flex;
+    padding: 5px;
+    margin:5px;
+    justify-content: center;
+    border:1px solid orange;
+    flex-grow:1;
+    height:50%;
+    justify-content: center;
+    align-items: center;
+}
+#char{
+    font-size: 400px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#control_frame{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding:10px;
+    height: 20%;
+}
+#btn_correct, #btn_incorrect, #btn_pass{
+    border: 1px solid black;
+    flex-grow:1;
+}
+
+#start{
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(10, 189, 10);
+}
