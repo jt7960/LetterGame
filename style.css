@@ -4,20 +4,23 @@ body{
     justify-content: center;
     flex-wrap: wrap;
     padding:5px;
+    color: F2F5C8;
+    
 }
 
 #outer_frame{
-    border: 1px solid red;
-    height:90%;
+    height:100%;
     width:90%;
-    background-color: darkgray;
+    background-color:#E8E8A6;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    border-radius: 10px;
+    box-shadow: 10px 10px #9b9b3c;
     
 }
-#score_frame{
-    border:1px solid blue;
+#score_frame, #control_frame{
+    background-color: #C1DEAE;
     padding: 5px;
     margin:5px;
     height: 20%;
@@ -25,17 +28,17 @@ body{
     flex-grow:1;
     width: 100%;
     display: flex;
+    border-radius: 10px;
 }
-#score_board, #start, #timer{
-    border: 1px solid black;
-    /*height: 100%;*/
-    width:40%;
+#score_board, #start, #mytimer, #btn_correct, #btn_incorrect, #practice{
+    background-color:#219F94;
     flex-grow:1;
     margin:5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 40px;
+    border-radius: 10px;
 }
 
 
@@ -46,34 +49,23 @@ body{
 
 #char_frame{
     display: flex;
-    padding: 5px;
-    margin:5px;
     justify-content: center;
-    border:1px solid orange;
     flex-grow:1;
     height:50%;
     justify-content: center;
     align-items: center;
 }
 #char{
-    font-size: 400px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 200px;
+    font-family: 'Comic Sans MS', 'Futura','Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:F2FFE9;
+    -webkit-text-stroke-width: 2px;
+    /*-webkit-text-stroke-color: blueviolet;*/
+    -webkit-text-stroke-color:rgb(3, 51, 13);
 }
 
-#control_frame{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    padding:10px;
-    height: 20%;
-}
-#btn_correct, #btn_incorrect, #btn_pass{
-    border: 1px solid black;
-    flex-grow:1;
-}
-
-#start{
-    justify-content: center;
-    align-items: center;
-    background-color:rgb(10, 189, 10);
+#start:hover, #btn_correct:hover, #btn_incorrect:hover, #yes_practice:hover, #no_practice:hover{
+    color:2C2891;
+    cursor: pointer;
+    text-shadow: 1px 1px black;
 }
