@@ -4,14 +4,17 @@ incorrect = 0
 var timerid
 missed_letters = []
 practice_mode = false
+game_mode = 'site_words'
+letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+site_words = ['my', 'you', 'we', 'see', 'can', 'with', 'he', 'and', 'do','to','go', 'I', 'the', 'a', 'are', 'had']
+used_bin = []
 
-function init_char_set(char_set){
-    //char_set = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+function init_char_set(){
     if(this.practice_mode){
         char_set = missed_letters
     }
     else{
-        char_set = ['my', 'you', 'we', 'see', 'can', 'with', 'he', 'and', 'do','to','go', 'I', 'the', 'a', 'are', 'had']
+        this.game_mode == 'letters' ? char_set = this.letters : char_set = this.site_words
     }
     return char_set
 }
@@ -46,30 +49,44 @@ function update_char(char){
 
 function get_rand_char(){
     if(char_set.length == 0){
-        practice_mode ? char_set = init_char_set(missed_letters) : char_set = init_char_set(char_set)
+        char_set = used_bin
+        used_bin = []
     }
     var rand_num = Math.floor(Math.random()*char_set.length);
-    char = char_set.splice(rand_num, 1)
+    if(practice_mode){
+        char = missed_letters[Math.floor(Math.random()*missed_letters.length)]
+        update_char(char)
+    }
+    else{
+        char = char_set.splice(rand_num, 1)
+        used_bin.push(char[0])
+        rand_num % 2 == 0 ? update_char(char) : update_char(char.toString())
+    }
+    
     //rand_num % 2 == 0 ? update_char(char) : update_char(char.toString().toUpperCase())
-    rand_num % 2 == 0 ? update_char(char) : update_char(char.toString())
+    
     return char_set
 }
 
 function increase_score(){
-    score++
-    document.getElementById('score').innerHTML = score
+    if(!practice_mode){
+        score++
+        document.getElementById('score').innerHTML = score
+    }
 }
 
 function increment_incorrect(){
-    add_to_missed_letters()
-    incorrect++
-    document.getElementById('incorrect').innerHTML = incorrect
+    if(!practice_mode){
+        add_to_missed_letters()
+        incorrect++
+        document.getElementById('incorrect').innerHTML = incorrect
+    }
 }
 
 
 function start_game(){
     practice_mode = set_practice_mode(practice_mode, false)
-    char_set = init_char_set(char_set)
+    char_set = init_char_set()
     missed_letters = []
     document.getElementById('btn_correct').addEventListener("click", increase_score);
     document.getElementById('btn_correct').addEventListener("click", get_rand_char);
@@ -91,7 +108,7 @@ function end_game(timer){
     document.getElementById('btn_incorrect').removeEventListener("click", increment_incorrect);
     console.log('endgame was called')
     clearInterval(timerid)
-    show_practice()
+    missed_letters.length > 0 ? show_practice() : show_start()
     document.getElementById('char').innerHTML = score
     document.getElementById('timer_val').innerHTML = 0
     reset_score()
