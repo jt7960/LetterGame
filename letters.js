@@ -1,18 +1,16 @@
-
 score = 0
 incorrect = 0
 var timerid
 missed_letters = []
+old_char_set = []
 practice_mode = false
-game_mode = 'site_words'
 letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 site_words = ['my', 'you', 'we', 'see', 'can', 'with', 'he', 'and', 'do','to','go', 'I', 'the', 'a', 'are', 'had']
 char_set = letters
 
 
-function init_char_set(char_set){
+function init_char_set(){
     char_set.forEach( (v, i, a) => { var i2 = Math.floor( Math.random() * ( a.length - i ) ) + i; t = a[ i ]; a[ i ] = a[ i2 ]; a[ i2 ] = t; });
-    return char_set
 }
 
 function start_timer(timer){
@@ -72,10 +70,10 @@ function increment_incorrect(){
     }
 }
 
-
 function start_game(){
-    //practice_mode = set_practice_mode(practice_mode, false)
-    char_set = init_char_set(char_set)
+    practice_mode = false
+
+    init_char_set()
     missed_letters = []
     document.getElementById('btn_correct').addEventListener("click", increase_score);
     document.getElementById('btn_correct').addEventListener("click", get_rand_char);
@@ -83,7 +81,7 @@ function start_game(){
     document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
     start_timer()
     show_timer()
-    update_char(get_rand_char(char_set))
+    update_char(get_rand_char())
     score = 0
     incorrect = 0
     document.getElementById('score').innerHTML = score
@@ -129,17 +127,9 @@ function show_practice(){
     document.getElementById('practice').style.display = 'flex'
 }
 
-function end_practice(){
-    document.getElementById('btn_correct').removeEventListener("click", increase_score);
-    document.getElementById('btn_correct').removeEventListener("click", get_rand_char);
-    document.getElementById('btn_incorrect').removeEventListener("click", get_rand_char);
-    document.getElementById('btn_incorrect').removeEventListener("click", increment_incorrect);
-    show_start()
-}
-
-
 function start_practice_mode(){
-    practice_mode = set_practice_mode(practice_mode, true)
+    old_char_set = char_set
+    practice_mode = true
     console.log('start practice was clicked')
     show_start()
     char_set = missed_letters
@@ -149,6 +139,17 @@ function start_practice_mode(){
     document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
     get_rand_char();
 }
+
+function end_practice(){
+    document.getElementById('btn_correct').removeEventListener("click", increase_score);
+    document.getElementById('btn_correct').removeEventListener("click", get_rand_char);
+    document.getElementById('btn_incorrect').removeEventListener("click", get_rand_char);
+    document.getElementById('btn_incorrect').removeEventListener("click", increment_incorrect);
+    char_set = old_char_set
+    show_start()
+}
+
+
 
 function add_to_missed_letters(){
     missed_letters.push(document.getElementById('char').innerHTML)
