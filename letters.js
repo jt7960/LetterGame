@@ -1,4 +1,4 @@
-char_set = init_char_set()
+
 score = 0
 incorrect = 0
 var timerid
@@ -7,15 +7,11 @@ practice_mode = false
 game_mode = 'site_words'
 letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 site_words = ['my', 'you', 'we', 'see', 'can', 'with', 'he', 'and', 'do','to','go', 'I', 'the', 'a', 'are', 'had']
-used_bin = []
+char_set = letters
 
-function init_char_set(){
-    if(this.practice_mode){
-        char_set = missed_letters
-    }
-    else{
-        this.game_mode == 'letters' ? char_set = this.letters : char_set = this.site_words
-    }
+
+function init_char_set(char_set){
+    char_set.forEach( (v, i, a) => { var i2 = Math.floor( Math.random() * ( a.length - i ) ) + i; t = a[ i ]; a[ i ] = a[ i2 ]; a[ i2 ] = t; });
     return char_set
 }
 
@@ -38,9 +34,16 @@ function decrease_timer(){
     }
 }
 
-function set_practice_mode(practice_mode, true_or_false){
+function set_practice_mode(true_or_false){
     practice_mode = true_or_false
     return practice_mode
+}
+
+function set_style_of_char_set(){
+    elems = document.getElementsByClassName('char_set_labels')
+    for(elem in elems){
+        document.getElementById('start').style.color= 'none'
+    }
 }
 
 function update_char(char){
@@ -48,24 +51,10 @@ function update_char(char){
 }
 
 function get_rand_char(){
-    if(char_set.length == 0){
-        char_set = used_bin
-        used_bin = []
-    }
-    var rand_num = Math.floor(Math.random()*char_set.length);
-    if(practice_mode){
-        char = missed_letters[Math.floor(Math.random()*missed_letters.length)]
-        update_char(char)
-    }
-    else{
-        char = char_set.splice(rand_num, 1)
-        used_bin.push(char[0])
-        rand_num % 2 == 0 ? update_char(char) : update_char(char.toString())
-    }
-    
-    //rand_num % 2 == 0 ? update_char(char) : update_char(char.toString().toUpperCase())
-    
-    return char_set
+    char = char_set.shift()
+    char_set.push(char)
+    update_char(char)
+    return char
 }
 
 function increase_score(){
@@ -85,8 +74,8 @@ function increment_incorrect(){
 
 
 function start_game(){
-    practice_mode = set_practice_mode(practice_mode, false)
-    char_set = init_char_set()
+    //practice_mode = set_practice_mode(practice_mode, false)
+    char_set = init_char_set(char_set)
     missed_letters = []
     document.getElementById('btn_correct').addEventListener("click", increase_score);
     document.getElementById('btn_correct').addEventListener("click", get_rand_char);
@@ -94,7 +83,7 @@ function start_game(){
     document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
     start_timer()
     show_timer()
-    get_rand_char()
+    update_char(get_rand_char(char_set))
     score = 0
     incorrect = 0
     document.getElementById('score').innerHTML = score
@@ -166,6 +155,8 @@ function add_to_missed_letters(){
 }
 
 document.body.onload = show_start()
+document.getElementById('letters').addEventListener("click", function(){char_set = letters})
+document.getElementById('words').addEventListener("click", function(){char_set = site_words})
 document.getElementById('start').addEventListener("click", start_game);
 document.getElementById('mytimer').addEventListener("click", end_game);
 
