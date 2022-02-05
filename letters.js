@@ -72,6 +72,8 @@ function increment_incorrect(){
 }
 
 function start_game(){
+    reset_score()
+    old_char_set = char_set
     disable_char_set_selection()
     practice_mode = false
     init_char_set()
@@ -99,7 +101,6 @@ function end_game(timer){
     missed_letters.length > 0 ? show_ask_practice() : show_start()
     document.getElementById('char').innerHTML = score
     document.getElementById('timer_val').innerHTML = 0
-    reset_score()
 }
 
 function reset_score(){
@@ -154,7 +155,6 @@ function start_practice_mode(){
     disable_char_set_selection()
     document.getElementById('btn_correct').addEventListener("click", get_rand_char);
     document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
-    old_char_set = char_set
     practice_mode = true
     console.log('start practice was clicked')
     char_set = missed_letters
@@ -172,7 +172,8 @@ function disable_char_set_selection(){
     document.getElementById('words').removeEventListener("click", function(){char_set = site_words})
 }
 
-function enable_char_set_selection(){
+function enable_char_set_selection(e){
+    document.getElementsByClassName('char_set_labels').addEventListener(select_char_set)
     document.getElementById('letters').addEventListener("click", function(){char_set = letters})
     document.getElementById('words').addEventListener("click", function(){char_set = site_words})
 }
