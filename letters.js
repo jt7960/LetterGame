@@ -45,6 +45,7 @@ function set_style_of_char_set(){
 }
 
 function update_char(char){
+    Math.floor(Math.random()*10) % 2 == 0 ? char = char : char =  char.toUpperCase()
     document.getElementById('char').innerHTML = char
 }
 
@@ -71,8 +72,8 @@ function increment_incorrect(){
 }
 
 function start_game(){
+    disable_char_set_selection()
     practice_mode = false
-
     init_char_set()
     missed_letters = []
     document.getElementById('btn_correct').addEventListener("click", increase_score);
@@ -95,7 +96,7 @@ function end_game(timer){
     document.getElementById('btn_incorrect').removeEventListener("click", increment_incorrect);
     console.log('endgame was called')
     clearInterval(timerid)
-    missed_letters.length > 0 ? show_practice() : show_start()
+    missed_letters.length > 0 ? show_ask_practice() : show_start()
     document.getElementById('char').innerHTML = score
     document.getElementById('timer_val').innerHTML = 0
     reset_score()
@@ -107,57 +108,81 @@ function reset_score(){
     document.getElementById('score').innerHTML = score
     document.getElementById('incorrect').innerHTML = incorrect
 }
+
 function show_timer(){
     document.getElementById('start').style.display= 'none'
-    document.getElementById('practice').style.display = 'none'
+    document.getElementById('ask_practice').style.display = 'none'
+    document.getElementById('btn_end_practice').style.display = 'none'
     document.getElementById('mytimer').style.display = 'flex'
 }
 
 function show_start(){
+    document.getElementById('btn_end_practice').style.display = 'none'
     document.getElementById('mytimer').style.display = 'none'
-    document.getElementById('practice').style.display = 'none'
+    document.getElementById('ask_practice').style.display = 'none'
     document.getElementById('start').style.display = 'flex'
-}
-
-function show_practice(){
-    document.getElementById('yes_practice').addEventListener('click', start_practice_mode);
-    document.getElementById('no_practice').addEventListener('click', end_practice);
-    document.getElementById('mytimer').style.display = 'none'
-    document.getElementById('start').style.display = 'none'
-    document.getElementById('practice').style.display = 'flex'
-}
-
-function start_practice_mode(){
-    old_char_set = char_set
-    practice_mode = true
-    console.log('start practice was clicked')
-    show_start()
-    char_set = missed_letters
-    document.getElementById('btn_correct').addEventListener("click", increase_score);
-    document.getElementById('btn_correct').addEventListener("click", get_rand_char);
-    document.getElementById('btn_incorrect').addEventListener("click", increment_incorrect);
-    document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
-    get_rand_char();
-}
-
-function end_practice(){
+    document.getElementById('letters').addEventListener("click", function(){char_set = letters})
+    document.getElementById('words').addEventListener("click", function(){char_set = site_words})
     document.getElementById('btn_correct').removeEventListener("click", increase_score);
     document.getElementById('btn_correct').removeEventListener("click", get_rand_char);
     document.getElementById('btn_incorrect').removeEventListener("click", get_rand_char);
     document.getElementById('btn_incorrect').removeEventListener("click", increment_incorrect);
+}
+
+function show_ask_practice(){
+    document.getElementById('yes_practice').addEventListener('click', start_practice_mode);
+    document.getElementById('no_practice').addEventListener('click', end_practice);
+    document.getElementById('mytimer').style.display = 'none'
+    document.getElementById('start').style.display = 'none'
+    document.getElementById('btn_end_practice').style.display = 'none'
+    document.getElementById('ask_practice').style.display = 'flex'
+}
+
+function show_practice(){
+    document.getElementById('mytimer').style.display = 'none'
+    document.getElementById('start').style.display = 'none'
+    document.getElementById('ask_practice').style.display = 'none'
+    document.getElementById('btn_end_practice').style.display = 'flex'
+    document.getElementById('btn_correct').addEventListener("click", increase_score);
+    document.getElementById('btn_correct').addEventListener("click", get_rand_char);
+    document.getElementById('btn_incorrect').addEventListener("click", increment_incorrect);
+    document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
+    document.getElementById('btn_end_practice').addEventListener("click", end_practice);
+}
+
+function start_practice_mode(){
+    disable_char_set_selection()
+    document.getElementById('btn_correct').addEventListener("click", get_rand_char);
+    document.getElementById('btn_incorrect').addEventListener("click", get_rand_char);
+    old_char_set = char_set
+    practice_mode = true
+    console.log('start practice was clicked')
+    char_set = missed_letters
+    show_practice()
+    get_rand_char();
+}
+
+function end_practice(){
     char_set = old_char_set
     show_start()
 }
 
+function disable_char_set_selection(){
+    document.getElementById('letters').removeEventListener("click", function(){char_set = letters})
+    document.getElementById('words').removeEventListener("click", function(){char_set = site_words})
+}
 
+function enable_char_set_selection(){
+    document.getElementById('letters').addEventListener("click", function(){char_set = letters})
+    document.getElementById('words').addEventListener("click", function(){char_set = site_words})
+}
 
 function add_to_missed_letters(){
     missed_letters.push(document.getElementById('char').innerHTML)
 }
 
 document.body.onload = show_start()
-document.getElementById('letters').addEventListener("click", function(){char_set = letters})
-document.getElementById('words').addEventListener("click", function(){char_set = site_words})
+
 document.getElementById('start').addEventListener("click", start_game);
 document.getElementById('mytimer').addEventListener("click", end_game);
 
