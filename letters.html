@@ -4,7 +4,6 @@
     </TITLE>
     <HEAD>
         <link rel="stylesheet" type="text/css" href="style.css">
-         
     </HEAD>
     <BODY>
         <div id='outer_frame'>
@@ -14,6 +13,14 @@
                 <span id='words', class='char_set_labels'>Words</span>
             </div>
             <div id='score_frame'>
+                <div class='btn_game_type'>Letters</div>
+                <div class='btn_game_type'>Site Words</div>
+                <div class='btn_game_type'>Custom</div>
+            </div>
+            <div id='char_frame'>
+                <span id='char'></span>
+            </div>
+            <div id='control_frame'>
                 <div id='score_board'>
                     <ul>
                         <li>
@@ -24,7 +31,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id='start'>Start Game!</div> <!--ADD PRACTICE PANEL TO SHOW AND END PRACTICE MODE-->
+                <div id='start'>Start Game!</div>
                 <div id='btn_end_practice'>End Practice</div>
                 <div id='mytimer'>
                     <ul>
@@ -39,13 +46,9 @@
                         <li id='no_practice'>No</li>
                     </ul>
                 </div>
-            </div>
-            <div id='char_frame'>
-                <span id='char'></span>
-            </div>
-            <div id='control_frame'>
-                <div id='btn_correct'>Correct</div>
-                <div id='btn_incorrect'>Incorrect</div>
+                
+                <div id='btn_incorrect'>&#10008;</div>
+                <div id='btn_correct'>&#x2714;</div>
             </div>
         </div>
     </BODY>
