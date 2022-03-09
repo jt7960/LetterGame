@@ -45,7 +45,9 @@ function set_style_of_char_set(){
 }
 
 function update_char(char){
-    Math.floor(Math.random()*10) % 2 == 0 ? char = char : char =  char.toUpperCase()
+    if(char_set == letters){
+        Math.floor(Math.random()*10) % 2 == 0 ? char = char : char =  char.toUpperCase()
+    }
     document.getElementById('char').innerHTML = char
 }
 
